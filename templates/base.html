@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>{% block title %}Xndcy Dashboard{% endblock %}</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet"/>
+<script src="/static/js/tailwind.config.js"></script>
+<link rel="stylesheet" href="/static/css/styles.css">
+<style>
+    body {
+        background-color: #0e0e0e;
+        color: #e5e2e1;
+    }
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #4a4a4a;
+        border-radius: 10px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #666666;
+    }
+</style>
+<script src="https://unpkg.com/htmx.org@1.9.10"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body class="flex min-h-screen bg-background text-on-background font-sans overflow-hidden" hx-boost="true">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full flex flex-col p-8 w-64 bg-background border-r border-outline-variant z-20">
+<!-- Brand / Header -->
+<div class="flex items-center gap-4 mb-xl">
+    {% if org_logo %}
+    <img src="{{ org_logo }}" alt="Organization Logo" class="w-8 h-8 shrink-0 rounded-md object-contain bg-surface-container-high border border-outline-variant">
+    {% else %}
+    <div class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center border border-outline-variant/30 shrink-0">
+        <span class="material-symbols-outlined text-primary text-[22px]" style="font-variation-settings: 'FILL' 1;">domain</span>
+    </div>
+    {% endif %}
+    <span class="font-headline-md text-[20px] font-bold tracking-tight text-on-surface truncate">{{ org_name }}</span>
+</div>
+</div>
+<!-- Navigation Tabs -->
+{% set active_page = active_page|default('dashboard') %}
+<nav class="flex-1 flex flex-col gap-2">
+    <a class="flex items-center gap-md px-4 py-3 rounded-xl font-medium text-[13px] transition-all {% if active_page == 'dashboard' %}bg-[#448aff] text-on-primary{% else %}text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/50{% endif %}" href="/">
+        <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' {% if active_page == 'dashboard' %}1{% else %}0{% endif %};">dashboard</span>
+        Dashboard
+    </a>
+    <a class="flex items-center gap-md px-4 py-3 rounded-xl font-medium text-[13px] transition-all {% if active_page == 'users' %}bg-[#448aff] text-on-primary{% else %}text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/50{% endif %}" href="/users">
+        <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' {% if active_page == 'users' %}1{% else %}0{% endif %};">group</span>
+        Users
+    </a>
+    <a class="flex items-center gap-md px-4 py-3 rounded-xl font-medium text-[13px] transition-all {% if active_page == 'roles' %}bg-[#448aff] text-on-primary{% else %}text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/50{% endif %}" href="/roles">
+        <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' {% if active_page == 'roles' %}1{% else %}0{% endif %};">badge</span>
+        Roles
+    </a>
+    <a class="flex items-center gap-md px-4 py-3 rounded-xl font-medium text-[13px] transition-all text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/50" href="#">
+        <span class="material-symbols-outlined text-[20px]">settings</span>
+        Settings
+    </a>
+</nav>
+
+<!-- Footer Tabs -->
+<div class="flex flex-col gap-2 mt-auto pt-8 border-t border-outline-variant">
+    <a class="flex items-center gap-md px-4 py-2 text-on-surface-variant hover:text-on-surface transition-all font-medium text-[13px]" href="#">
+        <span class="material-symbols-outlined text-[18px]">support</span>
+        Support
+    </a>
+    <a id="logout-btn" class="flex items-center gap-md px-4 py-2 text-on-surface-variant hover:text-on-surface transition-all font-medium text-[13px] cursor-pointer">
+        <span class="material-symbols-outlined text-[18px]">logout</span>
+        Logout
+    </a>
+    <div class="flex flex-col gap-3 mt-8 pt-6 border-t border-outline-variant/30 w-full">
+        <div class="flex items-center gap-3 w-full">
+            <div class="w-10 h-10 shrink-0 rounded-full bg-surface-container-high border border-outline-variant flex items-center justify-center overflow-hidden">
+                {% if user_pic %}
+                <img alt="{{ user_name }}" class="w-full h-full object-cover" src="{{ user_pic }}"/>
+                {% else %}
+                <span class="material-symbols-outlined text-on-primary-container text-[20px]">account_circle</span>
+                {% endif %}
+            </div>
+            <div class="font-body-md text-body-md font-bold text-primary leading-tight truncate flex-1" title="{{ user_name }}">{{ user_name }}</div>
+        </div>
+        <p class="font-label-sm text-[11px] text-on-surface-variant/40 text-center tracking-widest">© 2026 Xndcy Dashboard</p>
+    </div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 flex-1 flex flex-col h-screen bg-background">
+<!-- TopNavBar -->
+<header class="w-full h-20 bg-background border-b border-outline-variant flex justify-between items-center px-12 sticky top-0 z-10">
+    <div class="flex items-center">
+        <h1 class="font-headline-md text-[24px] text-on-surface tracking-tight font-semibold">{% block header_title %}Dashboard{% endblock %}</h1>
+    </div>
+    <div class="flex items-center gap-4">
+        <!-- Search Input -->
+        <div class="relative hidden lg:block mr-2">
+            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant/60 text-[18px]">search</span>
+            <input class="w-64 h-9 rounded-lg border border-outline-variant/20 bg-surface-container-high/30 pl-11 pr-4 font-body-sm text-[13px] text-on-surface placeholder:text-on-surface-variant/40 focus:border-primary focus:bg-surface-container-high focus:ring-1 focus:ring-primary outline-none transition-colors" placeholder="Search resources..." type="text"/>
+        </div>
+        <div class="flex items-center gap-1">
+            <button class="w-9 h-9 flex items-center justify-center text-on-surface-variant/80 hover:text-on-surface hover:bg-surface-container-high rounded-lg transition-all">
+                <span class="material-symbols-outlined text-[20px]">notifications</span>
+            </button>
+            <button class="w-9 h-9 flex items-center justify-center text-on-surface-variant/80 hover:text-on-surface hover:bg-surface-container-high rounded-lg transition-all">
+                <span class="material-symbols-outlined text-[20px]">help</span>
+            </button>
+        </div>
+        
+        <div class="w-px h-6 bg-outline-variant/20 mx-2"></div>
+        
+        <!-- Clock Widget -->
+        <div class="hidden lg:flex items-center pr-2">
+            <span id="dashboard-clock" class="font-mono-code tabular-nums text-[12px] text-on-surface-variant/70 font-medium tracking-wider w-[130px] text-left" data-tz="{{ org_tz|default('UTC') }}">--:--:--</span>
+        </div>
+    </div>
+</header>
+<!-- Content Area -->
+{% block content %}{% endblock %}
+</main>
+<script src="/static/js/auth.js"></script>
+
+<script>
+    function updateClock() {
+        const clockEl = document.getElementById('dashboard-clock');
+        if (!clockEl) return;
+        
+        let tz = clockEl.getAttribute('data-tz');
+        if (!tz || tz === '') tz = 'UTC';
+        
+        try {
+            const now = new Date();
+            // Get time strictly in the selected timezone
+            const timeString = now.toLocaleTimeString('en-US', { timeZone: tz, hour12: true, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            // Extract a clean display name (e.g. 'Kolkata' or 'New York')
+            const tzName = tz.split('/').pop().replace('_', ' ');
+            clockEl.textContent = timeString + " " + tzName;
+        } catch(e) {
+            // Fallback to local if invalid TZ
+            clockEl.textContent = new Date().toLocaleTimeString();
+        }
+    }
+    setInterval(updateClock, 1000);
+</script>
+<script src="/static/js/modals.js"></script>
+<script src="/static/js/gsap-init.js"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html><html lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Xndcy Dashboard - Sign In</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<script src="/static/js/tailwind.config.js"></script>
+<link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body class="bg-background min-h-screen flex flex-col items-center justify-center p-margin-mobile md:p-margin-desktop text-on-surface">
+<main class="w-full max-w-[420px] z-10 flex flex-col">
+<!-- Login Card -->
+<div class="bg-[rgba(14,14,14,0.95)] rounded-[32px] border border-outline-variant/30 p-8 shadow-2xl backdrop-blur-md w-full">
+<!-- Branding Header -->
+<div class="flex flex-col items-center mb-8 gap-4">
+<div class="w-12 h-12 bg-surface-container flex items-center justify-center rounded-[14px] border border-outline-variant/20 shadow-sm">
+<span class="material-symbols-outlined text-primary text-[24px]" data-icon="blur_on" style="font-variation-settings: &quot;FILL&quot; 1;">blur_on</span>
+</div>
+<h1 class="font-headline-md text-headline-md text-on-surface tracking-tight font-semibold">Xndcy Dashboard</h1>
+</div>
+<!-- Login Form -->
+<form action="#" id="login-form" class="space-y-5" method="POST">
+<!-- Email Input -->
+<div class="space-y-1.5">
+<label class="font-label-md text-[11px] uppercase tracking-widest text-on-surface-variant/80 block px-1 font-medium" for="email">Work Email</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">mail</span>
+<input autocomplete="email" class="block w-full rounded-xl border border-outline-variant/40 bg-surface-container/50 pl-11 pr-4 h-12 font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/40 focus:border-primary-container focus:bg-surface-container focus:ring-1 focus:ring-primary-container outline-none transition-colors" id="email" name="email" placeholder="name@company.com" required="" type="email">
+</div>
+</div>
+<!-- Password Input -->
+<div class="space-y-1.5">
+<div class="flex items-center justify-between px-1">
+<label class="font-label-md text-[11px] uppercase tracking-widest text-on-surface-variant/80 block font-medium" for="password">Password</label>
+<a class="font-label-sm text-[11px] text-primary hover:text-primary-fixed transition-colors" href="#">Forgot password?</a>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">lock</span>
+<input autocomplete="current-password" class="block w-full rounded-xl border border-outline-variant/40 bg-surface-container/50 pl-11 pr-4 h-12 font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/40 focus:border-primary-container focus:bg-surface-container focus:ring-1 focus:ring-primary-container outline-none transition-colors" id="password" name="password" placeholder="••••••••" required="" type="password">
+</div>
+</div>
+<!-- Remember Me (Optional addition based on reference, can keep or remove, keeping to match ref density) -->
+<div class="flex items-center px-1 py-1">
+<input class="w-4 h-4 rounded border-outline-variant/40 text-primary focus:ring-primary/20 bg-surface-container/50 cursor-pointer" id="remember" type="checkbox">
+<label class="ml-2.5 font-body-sm text-[13px] text-on-surface-variant cursor-pointer select-none" for="remember">Remember me for 30 days</label>
+</div>
+<!-- Error Message -->
+<p id="error-message" class="text-[#ffb4ab] font-body-sm text-[13px] hidden px-1 text-center"></p>
+<!-- Submit Button -->
+<button class="w-full h-12 flex items-center justify-center gap-2 rounded-xl bg-primary-container text-on-primary font-label-md font-semibold hover:bg-primary transition-all active:scale-[0.98] mt-2 shadow-lg shadow-primary-container/20" type="submit">
+                Sign In
+                <span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</form>
+<!-- Divider -->
+<div class="mt-6 mb-5 relative flex items-center">
+<div class="flex-grow border-t border-outline-variant/20"></div>
+<span class="mx-4 font-label-sm text-[10px] text-on-surface-variant/60 tracking-widest uppercase">OR</span>
+<div class="flex-grow border-t border-outline-variant/20"></div>
+</div>
+<!-- SSO Button -->
+<button id="sso-btn" class="w-full h-12 flex items-center justify-center gap-2 rounded-xl border border-outline-variant/40 bg-surface-container-low/50 font-label-md font-medium text-on-surface hover:bg-surface-container transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant" data-icon="corporate_fare">corporate_fare</span>
+            Sign in with SSO
+        </button>
+</div>
+</main>
+<!-- Minimal Footer -->
+<footer class="w-full mt-8 flex flex-col items-center gap-3">
+<div class="flex justify-center gap-6 font-label-sm text-[12px] text-on-surface-variant/60">
+<a class="hover:text-on-surface transition-colors" href="#">Privacy</a>
+<a class="hover:text-on-surface transition-colors" href="#">Terms</a>
+<a class="hover:text-on-surface transition-colors" href="#">Help</a>
+</div>
+<p class="font-label-sm text-[11px] text-on-surface-variant/40">
+        © 2026 Xndcy Dashboard</p>
+</footer>
+
+<script src="/static/js/auth.js"></script>
+
+</body></html>

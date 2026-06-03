@@ -1,0 +1,195 @@
+{% extends "base.html" %}
+{% set active_page = 'users' %}
+{% block title %}Xndcy Dashboard - Add User{% endblock %}
+{% block header_title %}Add New User{% endblock %}
+
+{% block content %}
+<div class="flex flex-col flex-1 relative overflow-hidden">
+    <div class="p-12 flex-1 overflow-y-auto custom-scrollbar">
+    <div class="mb-12 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <a href="/users" class="w-10 h-10 rounded-full bg-surface-container hover:bg-surface-container-high border border-outline-variant/30 flex items-center justify-center text-on-surface-variant transition-colors shadow-lg">
+                <span class="material-symbols-outlined text-[20px]">arrow_back</span>
+            </a>
+            <h2 class="font-headline-lg text-[32px] font-semibold text-on-surface tracking-tight">Provision New User</h2>
+        </div>
+    </div>
+
+    <!-- Main Config Container -->
+    <div class="w-full bg-surface-container border border-outline-variant/30 rounded-3xl shadow-2xl backdrop-blur-md p-10">
+        <div class="space-y-8 gsap-stagger-container">
+            <div class="grid grid-cols-2 gap-6 gsap-stagger-item">
+                <div>
+                    <label class="block font-label-md text-[11px] uppercase tracking-widest text-on-surface-variant/80 font-medium mb-3">First Name <span class="text-error">*</span></label>
+                    <input type="text" id="first-name" class="w-full bg-surface-container-high border border-outline-variant/20 rounded-xl px-4 py-3 text-[14px] text-on-surface placeholder-on-surface-variant/40 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-colors" placeholder="e.g. John">
+                </div>
+                <div>
+                    <label class="block font-label-md text-[11px] uppercase tracking-widest text-on-surface-variant/80 font-medium mb-3">Last Name <span class="text-error">*</span></label>
+                    <input type="text" id="last-name" class="w-full bg-surface-container-high border border-outline-variant/20 rounded-xl px-4 py-3 text-[14px] text-on-surface placeholder-on-surface-variant/40 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-colors" placeholder="e.g. Doe">
+                </div>
+            </div>
+
+            <div class="gsap-stagger-item">
+                <label class="block font-label-md text-[11px] uppercase tracking-widest text-on-surface-variant/80 font-medium mb-3">Provisioning Email <span class="text-error">*</span></label>
+                <input type="email" id="email" class="w-full bg-surface-container-high border border-outline-variant/20 rounded-xl px-4 py-3 text-[14px] text-on-surface placeholder-on-surface-variant/40 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-colors" placeholder="e.g. john.doe@company.com">
+            </div>
+
+            <div class="gsap-stagger-item">
+                <label class="block font-label-md text-[11px] uppercase tracking-widest text-on-surface-variant/80 font-medium mb-3">Personal Email <span class="text-error">*</span></label>
+                <input type="email" id="personal-email" class="w-full bg-surface-container-high border border-outline-variant/20 rounded-xl px-4 py-3 text-[14px] text-on-surface placeholder-on-surface-variant/40 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-colors" placeholder="e.g. john.doe@gmail.com">
+            </div>
+
+            <div class="gsap-stagger-item">
+                <label class="block font-label-md text-[11px] uppercase tracking-widest text-on-surface-variant/80 font-medium mb-3">Job Title <span class="text-error">*</span></label>
+                <input type="text" id="job-title" class="w-full bg-surface-container-high border border-outline-variant/20 rounded-xl px-4 py-3 text-[14px] text-on-surface placeholder-on-surface-variant/40 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-colors" placeholder="e.g. Software Engineer">
+            </div>
+
+            <div class="gsap-stagger-item">
+                <label class="block font-label-md text-[11px] uppercase tracking-widest text-on-surface-variant/80 font-medium mb-3">Role <span class="text-error">*</span></label>
+                <select id="role-select" class="w-full bg-surface-container-high border border-outline-variant/20 rounded-xl px-4 py-3 text-[14px] text-on-surface focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-colors cursor-pointer">
+                    <option value="" disabled selected>Select a role...</option>
+                    {% for role in roles %}
+                    <option value="{{ role.id }}" data-default-storage="{{ role.default_storage }}">{{ role.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="gsap-stagger-item">
+                <label class="block font-label-md text-[11px] uppercase tracking-widest text-on-surface-variant/80 font-medium mb-3">Storage Allocation (GB) <span class="text-error">*</span></label>
+                <input type="text" id="storage" inputmode="numeric" class="w-full bg-surface-container-high border border-outline-variant/20 rounded-xl px-4 py-3 text-[14px] text-on-surface placeholder-on-surface-variant/40 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-colors" placeholder="e.g. 50" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/^0+/, '')">
+            </div>
+        </div>
+    </div>
+    </div>
+    
+    <!-- Bottom Action Bar -->
+    <div class="px-12 py-6 bg-surface-container border-t border-outline-variant/20 flex justify-between items-center w-full z-[150] shrink-0 shadow-[0_-10px_40px_rgba(0,0,0,0.3)]">
+        <button id="discard-btn" class="bg-error/10 text-error hover:bg-error/20 px-8 py-2.5 rounded-xl font-medium text-[13px] transition-all opacity-0 pointer-events-none transform translate-y-2 flex items-center gap-2">
+            <span class="material-symbols-outlined text-[18px]">undo</span> Discard
+        </button>
+        <button id="create-btn" class="bg-[#c2e7ff] text-[#001d35] hover:bg-[#a8c7fa] px-8 py-2.5 rounded-full font-medium text-[13px] transition-all shadow-lg flex items-center gap-2">
+            <span class="material-symbols-outlined text-[18px]">person_add</span> Provision User
+        </button>
+    </div>
+</div>
+
+<script>
+(() => {
+    const inputs = Array.from(document.querySelectorAll('input, select'));
+    const discardBtn = document.getElementById('discard-btn');
+    const createBtn = document.getElementById('create-btn');
+    
+    // Store initial values
+    let initialValues = {};
+    const captureState = () => {
+        const state = {};
+        document.querySelectorAll('input, select').forEach(input => {
+            if (input.id) state[input.id] = input.value;
+        });
+        return state;
+    };
+    initialValues = captureState();
+
+    const checkDirty = () => {
+        let isDirty = false;
+        const currentValues = captureState();
+        for (const id in initialValues) {
+            if (currentValues[id] !== initialValues[id]) {
+                isDirty = true;
+            }
+        }
+        
+        if (isDirty) {
+            discardBtn.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-2');
+        } else {
+            discardBtn.classList.add('opacity-0', 'pointer-events-none', 'translate-y-2');
+        }
+    };
+
+    inputs.forEach(input => {
+        input.addEventListener('input', checkDirty);
+        if(input.tagName === 'SELECT') {
+            input.addEventListener('change', (e) => {
+                // Auto-fill storage based on role selection
+                if(e.target.id === 'role-select') {
+                    const selectedOption = e.target.options[e.target.selectedIndex];
+                    const defaultStorage = selectedOption.getAttribute('data-default-storage');
+                    if(defaultStorage) {
+                        const storageInput = document.getElementById('storage');
+                        storageInput.value = defaultStorage;
+                        storageInput.dispatchEvent(new Event('input'));
+                    }
+                }
+                checkDirty();
+            });
+        }
+    });
+
+    // Discard functionality
+    discardBtn.addEventListener('click', async () => {
+        if (typeof window.showConfirm === 'function') {
+            const confirmed = await window.showConfirm('Discard Changes', 'Are you sure you want to discard your changes?');
+            if (!confirmed) return;
+        }
+        window.location.href = window.location.href;
+    });
+
+    // Create functionality
+    createBtn.addEventListener('click', async () => {
+        const firstName = document.getElementById('first-name').value.trim();
+        const lastName = document.getElementById('last-name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const personalEmail = document.getElementById('personal-email').value.trim();
+        const jobTitle = document.getElementById('job-title').value.trim();
+        const roleId = document.getElementById('role-select').value;
+        const storage = document.getElementById('storage').value.trim();
+        
+        if (!firstName || !lastName || !email || !personalEmail || !jobTitle || !roleId || !storage) {
+            await window.showAlert('Missing Fields', 'Please fill in all required fields.', 'error');
+            return;
+        }
+
+        const payload = {
+            firstName,
+            lastName,
+            email,
+            personalEmail,
+            jobTitle,
+            roleId,
+            storage
+        };
+
+        const originalText = createBtn.innerHTML;
+        createBtn.innerHTML = '<span class="material-symbols-outlined animate-spin">refresh</span> Provisioning...';
+        createBtn.disabled = true;
+
+        try {
+            const response = await fetch('/api/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            const data = await response.json();
+            
+            if (data.success) {
+                window.location.href = '/users';
+            } else {
+                await window.showAlert('Error', data.message, 'error');
+                createBtn.innerHTML = originalText;
+                createBtn.disabled = false;
+            }
+        } catch (err) {
+            await window.showAlert('Network Error', 'A network error occurred. Please try again.', 'error');
+            createBtn.innerHTML = originalText;
+            createBtn.disabled = false;
+        }
+    });
+
+    // Re-snapshot after everything initialized
+    setTimeout(() => { initialValues = captureState(); checkDirty(); }, 150);
+})();
+</script>
+{% endblock %}

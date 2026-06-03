@@ -1,0 +1,1401 @@
+<!DOCTYPE html><html class="dark" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Xndcy Dashboard - Onboarding</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;display=swap" rel="stylesheet">
+<script src="/static/js/tailwind.config.js"></script>
+<link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body class="bg-background min-h-screen flex flex-col text-on-surface antialiased selection:bg-primary/30 selection:text-primary overflow-x-hidden">
+
+<!-- Pinned Top Header -->
+<header class="w-full p-margin-mobile md:p-margin-desktop flex justify-center">
+    <div class="w-full max-w-[420px]">
+        <div class="flex justify-between items-center mb-2 px-1 transition-opacity duration-300" id="header-text">
+            <span id="step-label" class="font-label-md text-[11px] uppercase tracking-widest text-on-surface-variant/80 font-medium">Step 1 of 5</span>
+            <span id="step-title" class="font-label-md text-[11px] text-on-surface-variant/80 font-medium">Organization Details</span>
+        </div>
+        <div class="h-[2px] w-full bg-surface-container-high rounded-full overflow-hidden">
+            <div id="progress-fill" class="h-full bg-primary w-[20%] rounded-full transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"></div>
+        </div>
+    </div>
+</header>
+
+<!-- Centered Main Content -->
+<main class="flex-grow flex items-center justify-center p-margin-mobile md:p-margin-desktop w-full">
+    <div id="main-container" class="w-full max-w-[420px] z-10 transition-[max-width] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
+
+        <!-- Single Card Container with Explicit Height Animation -->
+        <div id="card-inner" class="bg-[rgba(14,14,14,0.95)] rounded-[32px] border border-outline-variant/30 shadow-2xl backdrop-blur-md w-full relative transition-[height] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] overflow-hidden">
+        
+            <!-- STEP 1 CONTENT -->
+            <div id="step1-content" class="absolute top-8 left-8 right-8 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] transform translate-x-0 opacity-100 pointer-events-auto">
+                <div class="flex flex-col items-center mb-8 gap-4 text-center">
+                    <div>
+                        <h1 class="font-headline-md text-headline-md text-on-surface tracking-tight font-semibold mb-1">Xndcy Dashboard</h1>
+                        <p class="font-body-sm text-[13px] text-on-surface-variant">Set up your organization workspace to start managing your resources.</p>
+                    </div>
+                </div>
+                
+                <form id="step1-form" class="space-y-5">
+                    <div class="space-y-1.5">
+                        <label class="font-label-md text-[11px] uppercase tracking-widest text-on-surface-variant/80 block px-1 font-medium" for="orgName">Organization Name</label>
+                        <div class="relative">
+                            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">domain</span>
+                            <input class="block w-full rounded-xl border border-outline-variant/40 bg-surface-container/50 pl-11 pr-4 h-12 font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/40 focus:border-[#448aff] focus:bg-surface-container focus:ring-1 focus:ring-[#448aff] outline-none transition-colors" id="orgName" name="orgName" placeholder="e.g. Xenodochy" required="" type="text">
+                        </div>
+                    </div>
+
+                    <div class="space-y-1.5">
+                        <label class="font-label-md text-[11px] uppercase tracking-widest text-on-surface-variant/80 block px-1 font-medium" for="timezone">Workspace Timezone</label>
+                        <div class="relative" id="custom-tz-wrapper">
+                            <input type="hidden" id="timezone" name="timezone" required value="UTC">
+                            
+                            <div id="custom-tz-button" class="w-full rounded-xl border border-outline-variant/40 bg-surface-container/50 pl-11 pr-4 h-12 flex items-center justify-between cursor-pointer font-body-md text-[14px] text-on-surface hover:border-[#448aff] hover:bg-surface-container transition-all" tabindex="0">
+                                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px] pointer-events-none">schedule</span>
+                                <span id="custom-tz-display" class="truncate">Select Timezone...</span>
+                                <span class="material-symbols-outlined text-on-surface-variant text-[18px] transition-transform duration-300" id="custom-tz-icon">expand_more</span>
+                            </div>
+                            
+                            <!-- Dropdown Menu -->
+                            <div id="custom-tz-dropdown" class="absolute left-0 right-0 top-full mt-2 bg-surface-container border border-outline-variant/30 rounded-xl shadow-2xl overflow-hidden z-50 opacity-0 pointer-events-none transform -translate-y-2 transition-all duration-200 backdrop-blur-md">
+                                <ul id="custom-tz-list" class="max-h-[250px] overflow-y-auto py-2 custom-scrollbar">
+                                    <!-- Populated dynamically by JavaScript -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-1.5">
+                        <label class="font-label-md text-[11px] uppercase tracking-widest text-on-surface-variant/80 block px-1 font-medium">Organization Logo</label>
+                        <div id="logo-dropzone" class="border border-dashed border-outline-variant/40 bg-surface-container/50 rounded-xl p-6 text-center hover:border-[#448aff]/50 hover:bg-surface-container transition-colors cursor-pointer group relative overflow-hidden">
+                            <div id="logo-preview-container" class="hidden absolute inset-0 bg-surface-container/90 flex items-center justify-center">
+                                <img id="logo-preview" src="" alt="Logo Preview" class="max-h-full max-w-full object-contain p-2">
+                                <button type="button" id="remove-logo" class="absolute top-2 right-2 bg-surface-container-high rounded-full p-1 hover:bg-error/20 text-on-surface-variant hover:text-error transition-colors">
+                                    <span class="material-symbols-outlined text-[16px]">close</span>
+                                </button>
+                            </div>
+                            <div class="w-10 h-10 rounded-lg bg-surface-container-high mx-auto flex items-center justify-center mb-3 group-hover:bg-[#448aff]/10 transition-colors border border-outline-variant/20">
+                                <span class="material-symbols-outlined text-on-surface-variant group-hover:text-[#448aff] transition-colors text-[20px]">cloud_upload</span>
+                            </div>
+                            <p class="font-body-sm text-[13px] text-on-surface-variant mb-1">Drag and drop or <span class="text-[#448aff] group-hover:underline">browse</span> to upload</p>
+                            <p class="font-label-sm text-[11px] text-outline-variant">PNG or JPG (1:1 ratio, max. 500x500px)</p>
+                            <input id="logo-input" accept="image/png, image/jpeg" class="hidden" type="file">
+                        </div>
+                    </div>
+                    
+                    <button class="w-full h-12 flex items-center justify-center gap-2 rounded-xl bg-[#448aff] text-white font-label-md font-semibold hover:bg-[#3b78e8] transition-all active:scale-[0.98] mt-6 shadow-lg shadow-[#448aff]/20" type="submit">
+                        Continue
+                        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- STEP 2 CONTENT -->
+            <div id="step2-content" class="absolute top-8 left-8 right-8 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] transform translate-x-12 opacity-0 pointer-events-none">
+                <div class="flex flex-col items-center mb-8 gap-4 text-center">
+                    <div>
+                        <h1 class="font-headline-md text-headline-md text-on-surface tracking-tight font-semibold mb-1">Create Account</h1>
+                        <p class="font-body-sm text-[13px] text-on-surface-variant">This account will have full ownership of the organization.</p>
+                    </div>
+                </div>
+
+                <form id="step2-form" class="space-y-5">
+                    <div class="flex gap-4">
+                        <div class="space-y-1.5 flex-1">
+                            <label class="font-label-md text-[11px] uppercase tracking-widest text-on-surface-variant/80 block px-1 font-medium" for="firstName">First Name</label>
+                            <div class="relative">
+                                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">person</span>
+                                <input class="block w-full rounded-xl border border-outline-variant/40 bg-surface-container/50 pl-11 pr-4 h-12 font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/40 focus:border-[#448aff] focus:bg-surface-container focus:ring-1 focus:ring-[#448aff] outline-none transition-colors" id="firstName" placeholder="Jane" type="text" required>
+                            </div>
+                        </div>
+                        <div class="space-y-1.5 flex-1">
+                            <label class="font-label-md text-[11px] uppercase tracking-widest text-on-surface-variant/80 block px-1 font-medium" for="lastName">Last Name</label>
+                            <div class="relative">
+                                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">person</span>
+                                <input class="block w-full rounded-xl border border-outline-variant/40 bg-surface-container/50 pl-11 pr-4 h-12 font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/40 focus:border-[#448aff] focus:bg-surface-container focus:ring-1 focus:ring-[#448aff] outline-none transition-colors" id="lastName" placeholder="Doe" type="text" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="font-label-md text-[11px] uppercase tracking-widest text-on-surface-variant/80 block px-1 font-medium" for="workEmail">Work Email</label>
+                        <div class="relative">
+                            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">mail</span>
+                            <input class="block w-full rounded-xl border border-outline-variant/40 bg-surface-container/50 pl-11 pr-4 h-12 font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/40 focus:border-[#448aff] focus:bg-surface-container focus:ring-1 focus:ring-[#448aff] outline-none transition-colors" id="workEmail" placeholder="jane@example.com" type="email" required>
+                        </div>
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="font-label-md text-[11px] uppercase tracking-widest text-on-surface-variant/80 block px-1 font-medium" for="password">Password</label>
+                        <div class="relative">
+                            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">lock</span>
+                            <input class="block w-full rounded-xl border border-outline-variant/40 bg-surface-container/50 pl-11 pr-4 h-12 font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/40 focus:border-[#448aff] focus:bg-surface-container focus:ring-1 focus:ring-[#448aff] outline-none transition-colors" id="password" placeholder="••••••••" type="password" required>
+                        </div>
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="font-label-md text-[11px] uppercase tracking-widest text-on-surface-variant/80 block px-1 font-medium" for="confirmPassword">Confirm Password</label>
+                        <div class="relative">
+                            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">lock</span>
+                            <input class="block w-full rounded-xl border border-outline-variant/40 bg-surface-container/50 pl-11 pr-4 h-12 font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/40 focus:border-[#448aff] focus:bg-surface-container focus:ring-1 focus:ring-[#448aff] outline-none transition-colors" id="confirmPassword" placeholder="••••••••" type="password" required>
+                        </div>
+                    </div>
+
+                    <div class="space-y-1.5">
+                        <label class="font-label-md text-[11px] uppercase tracking-widest text-on-surface-variant/80 block px-1 font-medium">Profile Picture</label>
+                        <div id="user-pic-dropzone" class="border border-dashed border-outline-variant/40 bg-surface-container/50 rounded-xl p-6 text-center hover:border-[#448aff]/50 hover:bg-surface-container transition-colors cursor-pointer group relative overflow-hidden">
+                            <div id="user-pic-preview-container" class="hidden absolute inset-0 bg-surface-container/90 flex items-center justify-center">
+                                <img id="user-pic-preview" src="" alt="Profile Pic Preview" class="max-h-full max-w-full object-contain p-2">
+                                <button type="button" id="remove-user-pic" class="absolute top-2 right-2 bg-surface-container-high rounded-full p-1 hover:bg-error/20 text-on-surface-variant hover:text-error transition-colors">
+                                    <span class="material-symbols-outlined text-[16px]">close</span>
+                                </button>
+                            </div>
+                            <div class="w-10 h-10 rounded-lg bg-surface-container-high mx-auto flex items-center justify-center mb-3 group-hover:bg-[#448aff]/10 transition-colors border border-outline-variant/20">
+                                <span class="material-symbols-outlined text-on-surface-variant group-hover:text-[#448aff] transition-colors text-[20px]">account_circle</span>
+                            </div>
+                            <p class="font-body-sm text-[13px] text-on-surface-variant mb-1">Drag and drop or <span class="text-[#448aff] group-hover:underline">browse</span> to upload</p>
+                            <p class="font-label-sm text-[11px] text-outline-variant">PNG or JPG (1:1 ratio, max. 500x500px)</p>
+                            <input id="user-pic-input" accept="image/png, image/jpeg" class="hidden" type="file">
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center mt-6 gap-4">
+                        <button id="back-btn-2" class="h-12 px-6 flex items-center justify-center rounded-xl border border-outline-variant/40 bg-transparent text-on-surface font-label-md font-medium hover:bg-surface-container-low transition-colors" type="button">
+                            Back
+                        </button>
+                        <button class="flex-grow h-12 flex items-center justify-center gap-2 rounded-xl bg-[#448aff] text-white font-label-md font-semibold hover:bg-[#3b78e8] transition-all active:scale-[0.98] shadow-lg shadow-[#448aff]/20" type="submit">
+                            Continue
+                            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- STEP 3 CONTENT (Storage Allocation) -->
+            <div id="step3-content" class="absolute top-8 left-8 right-8 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] transform translate-x-12 opacity-0 pointer-events-none">
+                <form id="step3-form" class="flex flex-col gap-6">
+                    <!-- Card Header -->
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-surface-container flex items-center justify-center rounded-[14px] border border-outline-variant/20 shadow-sm mx-auto mb-4">
+                            <span class="material-symbols-outlined text-primary text-[24px]" style="font-variation-settings: 'FILL' 1;">database</span>
+                        </div>
+                        <div>
+                            <h1 class="font-headline-md text-headline-md text-on-surface tracking-tight font-semibold mb-1">Storage Configuration</h1>
+                            <p class="font-body-sm text-[13px] text-on-surface-variant">Define your local workstation resource allocation.</p>
+                        </div>
+                    </div>
+
+                    <!-- Storage Metrics Display -->
+                    <div class="bg-surface-container/30 rounded-xl border border-outline-variant/20 p-4 text-center">
+                        <div class="font-label-sm text-[11px] uppercase tracking-widest text-on-surface-variant/80 font-medium mb-1">Available Space</div>
+                        <div class="font-headline-md text-headline-md text-secondary">{{ max_storage }} GB</div>
+                        <div class="font-label-sm text-[11px] text-on-surface-variant/60">After 8GB system overhead</div>
+                    </div>
+
+                    <!-- Allocation Tool -->
+                    <div class="space-y-lg">
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between items-center px-1">
+                                <label class="font-label-md text-[11px] uppercase tracking-widest text-on-surface-variant/80 font-medium">Allocate to XNDCY Dashboard</label>
+                                <div class="flex items-baseline gap-xs">
+                                    <input type="number" id="storageDisplay" class="font-headline-md text-[24px] text-primary bg-surface-container/50 border border-outline-variant/40 rounded-xl text-center w-[100px] h-12 outline-none focus:border-[#448aff] focus:ring-1 focus:ring-[#448aff] focus:bg-surface-container transition-colors [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none [-moz-appearance:textfield] shadow-inner" value="{{ max_storage }}" max="{{ max_storage }}" min="1">
+                                    <span class="font-label-md text-[11px] text-on-surface-variant/60">GB</span>
+                                </div>
+                            </div>
+                            <div class="relative py-4">
+                                <input class="w-full" id="storageLimit" max="{{ max_storage }}" min="1" type="range" value="{{ max_storage }}"/>
+                                <div class="flex justify-between mt-2">
+                                    <span class="font-label-sm text-[10px] uppercase tracking-widest text-on-surface-variant/40">1 GB</span>
+                                    <span class="font-label-sm text-[10px] uppercase tracking-widest text-on-surface-variant/40">{{ max_storage }} GB</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4 border-t border-outline-variant/20 pt-6">
+                            <div class="flex items-start gap-3">
+                                <span class="material-symbols-outlined text-primary text-[18px] mt-0.5">info</span>
+                                <p class="font-body-sm text-[12px] leading-relaxed text-on-surface-variant/80">Allocated storage is used for caching telemetry logs and high-performance visualization assets.</p>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-surface-container/30 rounded-xl border border-outline-variant/20">
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-on-surface-variant text-[18px]">storage</span>
+                                    <span class="font-label-md text-[13px] text-on-surface">Drive: Local Drive</span>
+                                </div>
+                                <span class="text-[10px] uppercase tracking-widest font-bold text-secondary bg-secondary/10 px-2 py-0.5 rounded-full">Optimal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between items-center mt-2 gap-4">
+                        <button id="back-btn-3" class="h-12 px-6 flex items-center justify-center rounded-xl border border-outline-variant/40 bg-transparent text-on-surface font-label-md font-medium hover:bg-surface-container-low transition-colors" type="button">
+                            Back
+                        </button>
+                        <button class="flex-grow h-12 flex items-center justify-center gap-2 rounded-xl bg-[#448aff] text-white font-label-md font-semibold hover:bg-[#3b78e8] transition-all active:scale-[0.98] shadow-lg shadow-[#448aff]/20" type="submit">
+                            Continue
+                            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- STEP 4 CONTENT (Domain Configuration) -->
+            <div id="step4-content" class="absolute top-8 left-8 right-8 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] transform translate-x-12 opacity-0 pointer-events-none">
+                
+                <form id="step4-form" class="flex flex-col gap-6">
+                    <!-- Title Section -->
+                    <div class="flex flex-col gap-2 text-center md:text-left">
+                        <h1 class="font-headline-md text-headline-md text-on-surface tracking-tight font-semibold mb-1">Connect Your Domain</h1>
+                        <p class="font-body-sm text-[13px] text-on-surface-variant">Connect your workspace to a custom domain to finalize your environment routing.</p>
+                    </div>
+
+
+                    <!-- Configuration Options -->
+                    <div class="flex flex-col gap-4 mt-2">
+                        <label class="font-label-md text-[11px] uppercase tracking-widest text-on-surface-variant/80 block px-1 font-medium">Configuration Method</label>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- Option 1: Cloudflare -->
+                            <div id="btn-config-cloudflare" class="relative p-5 rounded-xl border border-[#448aff]/50 bg-[#448aff]/10 cursor-pointer transition-colors flex items-start gap-4" onclick="setConfigMethod('cloudflare')">
+                                <div id="radio-cloudflare-outer" class="mt-0.5 w-5 h-5 rounded-full border border-[#448aff] flex items-center justify-center">
+                                    <div id="radio-cloudflare-inner" class="w-2.5 h-2.5 rounded-full bg-[#448aff]"></div>
+                                </div>
+                                <div class="flex flex-col gap-1">
+                                    <span id="text-cloudflare" class="font-label-md text-[14px] flex items-center gap-2 text-[#448aff] font-semibold">
+                                        Connect with Cloudflare
+                                        <span class="px-2 py-0.5 rounded-md bg-[#448aff]/20 text-[#448aff] font-label-sm text-[10px] uppercase tracking-wider">Recommended</span>
+                                    </span>
+                                    <span class="font-body-sm text-[13px] text-on-surface-variant/80">Automated setup via OAuth</span>
+                                </div>
+                            </div>
+                            <!-- Option 2: Manual -->
+                            <div id="btn-config-manual" class="relative p-5 rounded-xl border border-outline-variant/40 hover:border-[#448aff]/50 hover:bg-surface-container-high cursor-pointer transition-colors flex items-start gap-4 bg-surface-container/30" onclick="setConfigMethod('manual')">
+                                <div id="radio-manual-outer" class="mt-0.5 w-5 h-5 rounded-full border border-outline-variant/60 flex items-center justify-center">
+                                    <div id="radio-manual-inner" class="w-2.5 h-2.5 rounded-full bg-transparent"></div>
+                                </div>
+                                <div class="flex flex-col gap-1">
+                                    <span id="text-manual" class="font-label-md text-[14px] text-on-surface font-semibold">Manual DNS Setup</span>
+                                    <span class="font-body-sm text-[13px] text-on-surface-variant/80">Configure records via your registrar</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Cloudflare Action -->
+                        <div id="ui-cloudflare" class="mt-2 rounded-2xl bg-surface-container-lowest border border-outline-variant/20 flex flex-col items-center justify-center gap-6 text-center p-6 transition-all duration-300 overflow-hidden">
+                            <!-- State 1: Token Input -->
+                            <div id="cf-state-token" class="w-full flex flex-col gap-4">
+                                <div class="flex items-center justify-center gap-3 mb-2">
+                                    <span class="material-symbols-outlined text-[28px] text-[#F38020]">cloud_queue</span>
+                                    <span class="font-headline-md text-[20px] font-bold tracking-tight text-on-surface">Cloudflare DNS</span>
+                                </div>
+                                <div class="flex flex-col gap-1.5 w-full text-left">
+                                    <label class="font-label-md text-[11px] uppercase tracking-widest text-on-surface-variant/80 block px-1 font-medium">Cloudflare API Token</label>
+                                    <div class="relative flex items-center">
+                                        <span class="material-symbols-outlined absolute left-4 text-[#F38020] text-[18px]">key</span>
+                                        <input class="block w-full rounded-xl border border-outline-variant/40 pl-11 pr-4 h-12 font-mono-code text-[14px] text-on-surface placeholder:text-on-surface-variant/40 focus:border-[#F38020] focus:bg-surface-container-high focus:ring-1 focus:ring-[#F38020] outline-none transition-colors bg-surface-container/50" id="cfToken" placeholder="Paste your API token here" type="password">
+                                    </div>
+                                    <div class="mt-2 p-4 rounded-xl bg-[#F38020]/10 border border-[#F38020]/20">
+                                        <span class="font-semibold text-[#F38020] block mb-2 text-[12px] uppercase tracking-wider">How to get your token:</span>
+                                        <ol class="list-decimal pl-4 space-y-1.5 text-[13px] text-on-surface-variant">
+                                            <li>Click the link below to open Cloudflare.</li>
+                                            <li>Click <strong class="text-on-surface">Create Token</strong>.</li>
+                                            <li>Scroll down to <strong class="text-on-surface">Edit zone DNS</strong> and click <strong class="text-on-surface">Use template</strong>.</li>
+                                            <li>Under Permissions, select <strong class="text-on-surface">Zone</strong> > <strong class="text-on-surface">DNS</strong> > <strong class="text-on-surface">Edit</strong>.</li>
+                                            <li>Under Zone Resources, select <strong class="text-on-surface">Include</strong> > <strong class="text-on-surface">Specific zone</strong> > <strong class="text-on-surface">Your Domain</strong>.</li>
+                                            <li>Click <strong class="text-on-surface">Continue to summary</strong> then <strong class="text-on-surface">Create Token</strong>.</li>
+                                        </ol>
+                                        <a href="https://dash.cloudflare.com/profile/api-tokens" target="_blank" class="mt-3 flex items-center gap-1.5 text-[#F38020] hover:text-[#d9731c] hover:underline text-[13px] font-medium w-fit">
+                                            <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+                                            Open Cloudflare Dashboard
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2 w-full">
+                                    <button type="button" onclick="handleCloudflareConnect()" id="btn-cf-connect" class="flex-grow flex items-center justify-center gap-2 p-3.5 rounded-xl bg-[#F38020] hover:bg-[#d9731c] text-white transition-colors font-label-md font-semibold text-[14px]">
+                                        Connect <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                                    </button>
+                                    <button type="button" onclick="handleCloudflareBypass()" id="btn-cf-bypass" class="flex items-center justify-center gap-2 p-3.5 rounded-xl bg-surface-container-highest hover:bg-surface-bright text-on-surface transition-colors font-label-md font-semibold text-[14px] px-4" title="Bypass for local testing">
+                                        <span class="material-symbols-outlined text-[18px]">code</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- State 2: Zone Selection -->
+                            <div id="cf-state-zone" class="w-full hidden flex-col gap-4">
+                                <div class="flex items-center justify-center gap-3 mb-2">
+                                    <span class="material-symbols-outlined text-[28px] text-[#F38020]">cloud_queue</span>
+                                    <span class="font-headline-md text-[20px] font-bold tracking-tight text-on-surface">Select Domain</span>
+                                </div>
+                                <div class="flex flex-col gap-1.5 w-full text-left">
+                                    <label class="font-label-md text-[11px] uppercase tracking-widest text-on-surface-variant/80 block px-1 font-medium">Available Domains</label>
+                                    <select id="cfZoneSelect" class="block w-full rounded-xl border border-outline-variant/40 px-4 h-12 font-mono-code text-[14px] text-on-surface focus:border-[#F38020] outline-none transition-colors bg-surface-container/50 appearance-none cursor-pointer">
+                                        <!-- Populated via JS -->
+                                    </select>
+                                </div>
+                                <button type="button" onclick="handleCloudflareZoneSelect()" class="w-full flex items-center justify-center gap-2 p-3.5 rounded-xl bg-surface-container-highest hover:bg-surface-bright text-on-surface transition-colors font-label-md font-semibold text-[14px]">
+                                    Continue
+                                </button>
+                            </div>
+
+                            <!-- State 3: Subdomain vs Root -->
+                            <div id="cf-state-subdomain" class="w-full hidden flex-col gap-4">
+                                <div class="flex items-center justify-center gap-3 mb-2">
+                                    <span class="material-symbols-outlined text-[28px] text-[#F38020]">cloud_queue</span>
+                                    <span class="font-headline-md text-[20px] font-bold tracking-tight text-on-surface">Configure Hostname</span>
+                                </div>
+                                <div class="flex flex-col gap-1.5 w-full text-left">
+                                    <label class="font-label-md text-[11px] uppercase tracking-widest text-on-surface-variant/80 block px-1 font-medium">Dashboard Hostname</label>
+                                    <div class="flex items-center w-full rounded-xl border border-outline-variant/40 bg-surface-container/50 focus-within:border-[#F38020] transition-colors h-12 overflow-hidden px-4">
+                                        <input type="text" id="cfSubdomainInput" placeholder="dash" 
+                                               class="p-0 m-0 font-mono-code text-[14px] text-on-surface bg-transparent outline-none border-none focus:ring-0 focus:border-none placeholder:text-on-surface-variant/30 min-w-[4ch] max-w-[60%]" 
+                                               style="width: 4.5ch;" 
+                                               oninput="this.style.width = (this.value.length || 4) + 0.5 + 'ch'">
+                                        <span class="text-on-surface-variant text-[14px] font-mono-code opacity-70">.</span>
+                                        <span id="cfSelectedZoneDisplay" class="text-on-surface-variant font-mono-code text-[14px] opacity-70 truncate">example.com</span>
+                                    </div>
+                                    <span class="text-[12px] text-on-surface-variant pl-1">Leave blank to use the root domain.</span>
+                                </div>
+                                <button type="button" onclick="handleCloudflareProvision()" id="btn-cf-provision" class="w-full flex items-center justify-center gap-2 p-3.5 rounded-xl bg-[#F38020] hover:bg-[#d9731c] text-white transition-colors font-label-md font-semibold text-[14px]">
+                                    Provision DNS <span class="material-symbols-outlined text-[18px]">dns</span>
+                                </button>
+                            </div>
+
+                            <!-- State 4: Success -->
+                            <div id="cf-state-success" class="w-full hidden flex-col items-center gap-3">
+                                <span class="font-label-sm text-[11px] uppercase tracking-widest text-on-surface-variant/60">Verification Status</span>
+                                <div class="flex items-center gap-3 px-6 py-3 bg-[#1e2f28] border border-[#2d4a3e] rounded-full text-[#4ade80]">
+                                    <span class="material-symbols-outlined text-[20px] icon-fill">check_circle</span>
+                                    <span class="font-label-md text-[16px] font-semibold">DNS Provisioned</span>
+                                </div>
+                                <span id="cfFinalDomainDisplay" class="text-[13px] text-on-surface-variant mt-2 font-mono-code"></span>
+                            </div>
+                        </div>
+
+                        <!-- Manual Setup Details -->
+                        <div id="ui-manual" class="hidden flex-col gap-4 mt-2 p-5 rounded-xl border border-outline-variant/30 bg-surface-container/30">
+                            <!-- Domain Input moved here -->
+                            <div class="flex flex-col gap-1.5 w-full">
+                                <label class="font-label-md text-[11px] uppercase tracking-widest text-on-surface-variant/80 block px-1 font-medium" for="domain">Domain Name</label>
+                                <div class="relative flex items-center">
+                                    <span class="material-symbols-outlined absolute left-4 text-on-surface-variant text-[18px]">language</span>
+                                    <input class="block w-full rounded-xl border border-outline-variant/40 pl-11 pr-4 h-12 font-mono-code text-[14px] text-on-surface placeholder:text-on-surface-variant/40 focus:border-[#448aff] focus:bg-surface-container-high focus:ring-1 focus:ring-[#448aff] outline-none transition-colors bg-surface-container/50" id="domain" placeholder="e.g., api.yourcompany.com" type="text">
+                                </div>
+                            </div>
+                            
+                            <!-- Let's Encrypt Email -->
+                            <div class="flex flex-col gap-1.5 w-full mt-2">
+                                <label class="font-label-md text-[11px] uppercase tracking-widest text-on-surface-variant/80 block px-1 font-medium" for="leEmail">Let's Encrypt SSL Email</label>
+                                <div class="relative flex items-center">
+                                    <span class="material-symbols-outlined absolute left-4 text-on-surface-variant text-[18px]">mail</span>
+                                    <input class="block w-full rounded-xl border border-outline-variant/40 pl-11 pr-4 h-12 font-mono-code text-[14px] text-on-surface placeholder:text-on-surface-variant/40 focus:border-[#448aff] focus:bg-surface-container-high focus:ring-1 focus:ring-[#448aff] outline-none transition-colors bg-surface-container/50" id="leEmail" placeholder="e.g., admin@yourcompany.com" type="email">
+                                </div>
+                            </div>
+                            
+                            <!-- Hide records table initially -->
+                            <div id="manual-dns-records" class="hidden flex-col gap-4 w-full border-t border-outline-variant/20 pt-4 mt-2">
+                                <div class="flex items-center justify-between">
+                                    <span class="font-label-md text-[11px] uppercase tracking-widest text-on-surface-variant/80 block font-medium">DNS Records</span>
+                                    <div class="flex items-center gap-2 px-2.5 py-1 rounded-md bg-surface-container-highest border border-outline-variant/20">
+                                        <div class="w-1.5 h-1.5 rounded-full bg-[#00d0b1] animate-pulse"></div>
+                                        <span class="font-label-sm text-[11px] text-on-surface-variant">Awaiting Verification</span>
+                                    </div>
+                                </div>
+                                <!-- Records Table -->
+                                <div class="w-full overflow-x-auto">
+                                    <table class="w-full text-left border-collapse">
+                                        <thead>
+                                            <tr class="border-b border-outline-variant/20">
+                                                <th class="py-2 pr-4 font-label-sm text-[10px] text-on-surface-variant/60 uppercase tracking-widest font-medium">Type</th>
+                                                <th class="py-2 pr-4 font-label-sm text-[10px] text-on-surface-variant/60 uppercase tracking-widest font-medium">Name</th>
+                                                <th class="py-2 pr-4 font-label-sm text-[10px] text-on-surface-variant/60 uppercase tracking-widest font-medium">Content / Value</th>
+                                                <th class="py-2 pr-4 font-label-sm text-[10px] text-on-surface-variant/60 uppercase tracking-widest font-medium">Status</th>
+                                                <th class="py-2 w-10"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-outline-variant/10">
+                                            <!-- Record 1 -->
+                                            <tr class="group transition-colors">
+                                                <td class="py-3 pr-4">
+                                                    <span class="inline-block px-1.5 py-0.5 rounded bg-surface-container-highest border border-outline-variant/20 font-mono-code text-[11px] text-on-surface-variant">TXT</span>
+                                                </td>
+                                                <td id="dns-txt-name" class="py-3 pr-4 font-mono-code text-[13px] text-on-surface">_xndcy-dashboard</td>
+                                                <td id="dns-txt-value" class="py-3 pr-4 font-mono-code text-[13px] text-on-surface-variant/80 truncate max-w-[150px]" title="Pending...">Pending...</td>
+                                                <td class="py-3 pr-4">
+                                                    <div id="status-txt-badge" class="flex items-center gap-1.5">
+                                                        <div class="w-1.5 h-1.5 rounded-full bg-[#facc15] animate-pulse"></div>
+                                                        <span class="font-label-sm text-[11px] text-on-surface-variant">Pending</span>
+                                                    </div>
+                                                </td>
+                                                <td class="py-3 text-right">
+                                                    <button type="button" aria-label="Copy Content" class="text-on-surface-variant/40 hover:text-on-surface transition-colors p-1 rounded hover:bg-surface-container-highest" onclick="navigator.clipboard.writeText(document.getElementById('dns-txt-value').textContent)">
+                                                        <span class="material-symbols-outlined text-[16px]">content_copy</span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <!-- Record 2 -->
+                                            <tr class="group transition-colors">
+                                                <td class="py-3 pr-4">
+                                                    <span class="inline-block px-1.5 py-0.5 rounded bg-surface-container-highest border border-outline-variant/20 font-mono-code text-[11px] text-[#44edcc]">A Record</span>
+                                                </td>
+                                                <td id="dns-a-name" class="py-3 pr-4 font-mono-code text-[13px] text-on-surface">@</td>
+                                                <td id="dns-a-value" class="py-3 pr-4 font-mono-code text-[13px] text-on-surface-variant/80 truncate max-w-[150px]" title="Pending...">Pending...</td>
+                                                <td class="py-3 pr-4">
+                                                    <div id="status-a-badge" class="flex items-center gap-1.5">
+                                                        <div class="w-1.5 h-1.5 rounded-full bg-[#facc15] animate-pulse"></div>
+                                                        <span class="font-label-sm text-[11px] text-on-surface-variant">Pending</span>
+                                                    </div>
+                                                </td>
+                                                <td class="py-3 text-right">
+                                                    <button type="button" aria-label="Copy Content" class="text-on-surface-variant/40 hover:text-on-surface transition-colors p-1 rounded hover:bg-surface-container-highest" onclick="navigator.clipboard.writeText(document.getElementById('dns-a-value').textContent)">
+                                                        <span class="material-symbols-outlined text-[16px]">content_copy</span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer Actions -->
+                    <div class="mt-2 pt-6 border-t border-outline-variant/20 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <button id="back-btn-4" class="w-full sm:w-auto h-12 px-6 font-label-md font-medium text-on-surface-variant hover:text-on-surface transition-colors flex items-center justify-center gap-2 rounded-xl hover:bg-surface-container-high" type="button">
+                            <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+                            Back
+                        </button>
+                        <div class="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
+                            <button id="btn-verify-domain" type="button" class="hidden w-full sm:w-auto h-12 px-6 rounded-xl border border-outline-variant/40 bg-surface-container-low font-label-md font-medium text-on-surface hover:bg-surface-container-high transition-colors">
+                                Verify Domain
+                            </button>
+                            <button class="w-full sm:w-auto h-12 px-8 flex items-center justify-center gap-2 rounded-xl bg-[#448aff] text-white font-label-md font-semibold hover:bg-[#3b78e8] transition-all active:scale-[0.98] shadow-lg shadow-[#448aff]/20" type="submit">
+                                Continue
+                                <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- STEP 5 CONTENT (Overview) -->
+            <div id="step5-content" class="absolute top-8 left-8 right-8 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] transform translate-x-12 opacity-0 pointer-events-none">
+                <div class="flex flex-col items-center mb-8 gap-4 text-center">
+                    <div class="w-12 h-12 bg-surface-container flex items-center justify-center rounded-[14px] border border-outline-variant/20 shadow-sm">
+                        <span class="material-symbols-outlined text-primary text-[24px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                    </div>
+                    <div>
+                        <h1 class="font-headline-md text-headline-md text-on-surface tracking-tight font-semibold mb-1">Workspace Ready</h1>
+                        <p class="font-body-sm text-[13px] text-on-surface-variant">Your Xndcy Dashboard is provisioned and ready.</p>
+                    </div>
+                </div>
+                <form id="step5-form" class="space-y-6">
+                    <!-- Organization Section -->
+                    <div class="space-y-1.5">
+                        <label class="font-label-md text-[11px] uppercase tracking-widest text-on-surface-variant/80 block px-1 font-medium">Organization</label>
+                        <div class="flex items-center gap-4 rounded-xl border border-outline-variant/40 bg-surface-container/50 p-4 h-16">
+                            <div class="w-8 h-8 rounded-md bg-surface-container-high flex items-center justify-center border border-outline-variant/20">
+                                <span class="material-symbols-outlined text-on-surface-variant text-[18px]">domain</span>
+                            </div>
+                            <div id="overview-org-name" class="font-body-md text-on-surface font-medium truncate">Acme Corp Global</div>
+                        </div>
+                    </div>
+                    <!-- Domain Status Section -->
+                    <div class="space-y-1.5">
+                        <label class="font-label-md text-[11px] uppercase tracking-widest text-on-surface-variant/80 block px-1 font-medium">Domain Status</label>
+                        <div class="flex flex-col justify-center gap-1 rounded-xl border border-outline-variant/40 bg-surface-container/50 p-4 h-16">
+                            <div class="flex items-center justify-between">
+                                <div id="overview-domain-name" class="font-mono-code text-[13px] text-on-surface truncate">production.acmecorp.xndcy</div>
+                                <span class="text-[10px] uppercase font-bold text-secondary bg-secondary/10 px-1.5 py-0.5 rounded border border-secondary/20">Verified</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Storage Section -->
+                    <div class="space-y-1.5">
+                        <label class="font-label-md text-[11px] uppercase tracking-widest text-on-surface-variant/80 block px-1 font-medium">Storage</label>
+                        <div class="flex items-center gap-3 rounded-xl border border-outline-variant/40 bg-surface-container/50 px-4 h-12">
+                            <span class="material-symbols-outlined text-on-surface-variant text-[18px]">database</span>
+                            <div class="font-body-md text-on-surface">500 GB Available</div>
+                        </div>
+                    </div>
+                    <!-- Admin Setup Section -->
+                    <div class="space-y-1.5">
+                        <label class="font-label-md text-[11px] uppercase tracking-widest text-on-surface-variant/80 block px-1 font-medium">Admin Email</label>
+                        <div class="flex items-center gap-3 rounded-xl border border-outline-variant/40 bg-surface-container/50 px-4 h-12">
+                            <span class="material-symbols-outlined text-on-surface-variant text-[18px]">admin_panel_settings</span>
+                            <div id="overview-admin-email" class="font-body-md text-on-surface truncate">admin@acmecorp.dev</div>
+                        </div>
+                    </div>
+                    <!-- Actions -->
+                    <div class="pt-2">
+                        <button class="w-full h-12 flex items-center justify-center gap-2 rounded-xl bg-[#448aff] text-white font-label-md font-semibold hover:bg-[#3b78e8] transition-all active:scale-[0.98] shadow-lg shadow-[#448aff]/20" type="submit" id="btn-open-dashboard">
+                            Open Dashboard
+                            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</main>
+
+<footer class="w-full p-margin-mobile md:p-margin-desktop flex flex-col items-center gap-3">
+    <div class="flex justify-center gap-6 font-label-sm text-[12px] text-on-surface-variant/60">
+        <a class="hover:text-on-surface transition-colors" href="#">Support</a>
+        <a class="hover:text-on-surface transition-colors" href="#">Privacy Policy</a>
+        <a class="hover:text-on-surface transition-colors" href="#">Terms of Service</a>
+    </div>
+    <p class="font-label-sm text-[11px] text-on-surface-variant/40">
+        © 2026 Xndcy Dashboard
+    </p>
+</footer>
+
+<script>
+    const cardInner = document.getElementById('card-inner');
+    const progressFill = document.getElementById('progress-fill');
+    const stepLabel = document.getElementById('step-label');
+    const stepTitle = document.getElementById('step-title');
+    const headerText = document.getElementById('header-text');
+    
+    // Config for all steps
+    const steps = [
+        { id: 'step1-content', label: 'Step 1 of 5', title: 'Organization Details', progress: '20%' },
+        { id: 'step2-content', label: 'Step 2 of 5', title: 'Account Details', progress: '40%' },
+        { id: 'step3-content', label: 'Step 3 of 5', title: 'Storage Allocation', progress: '60%' },
+        { id: 'step4-content', label: 'Step 4 of 5', title: 'Domain Settings', progress: '80%' },
+        { id: 'step5-content', label: 'Step 5 of 5', title: 'Overview', progress: '100%' }
+    ];
+    let currentStep = 0;
+
+    function setHeightFor(element) {
+        const newHeight = element.offsetHeight + 64; // p-8 top & bottom
+        cardInner.style.height = newHeight + 'px';
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => setHeightFor(document.getElementById(steps[0].id)), 50);
+    });
+
+    function navigateSteps(direction) {
+        const currentEl = document.getElementById(steps[currentStep].id);
+        
+        if (direction === 'next' && currentStep < steps.length - 1) {
+            currentStep++;
+        } else if (direction === 'prev' && currentStep > 0) {
+            currentStep--;
+        } else {
+            return;
+        }
+
+        const newEl = document.getElementById(steps[currentStep].id);
+
+        // Header animation
+        headerText.style.opacity = '0';
+        setTimeout(() => {
+            stepLabel.textContent = steps[currentStep].label;
+            stepTitle.textContent = steps[currentStep].title;
+            headerText.style.opacity = '1';
+        }, 150);
+        
+        // Progress Bar Animation
+        progressFill.style.width = steps[currentStep].progress;
+
+        // Slide current out
+        currentEl.classList.remove('translate-x-0', 'opacity-100', 'pointer-events-auto');
+        if (direction === 'next') {
+            currentEl.classList.add('-translate-x-12', 'opacity-0', 'pointer-events-none');
+        } else {
+            currentEl.classList.add('translate-x-12', 'opacity-0', 'pointer-events-none');
+        }
+
+        // Slide new in
+        newEl.classList.remove('translate-x-12', '-translate-x-12', 'opacity-0', 'pointer-events-none');
+        newEl.classList.add('translate-x-0', 'opacity-100', 'pointer-events-auto');
+
+        // Width Animation
+        const mainContainer = document.getElementById('main-container');
+        if (steps[currentStep].id === 'step4-content') {
+            mainContainer.classList.remove('max-w-[420px]');
+            mainContainer.classList.add('max-w-[750px]');
+        } else {
+            mainContainer.classList.remove('max-w-[750px]');
+            mainContainer.classList.add('max-w-[420px]');
+        }
+
+        if (steps[currentStep].id === 'step5-content') {
+            document.getElementById('overview-org-name').textContent = document.getElementById('orgName').value || 'Default Organization';
+            document.getElementById('overview-admin-email').textContent = document.getElementById('workEmail').value || 'admin@example.com';
+            
+            const isCloudflare = document.getElementById('ui-cloudflare').classList.contains('flex');
+            document.getElementById('overview-domain-name').textContent = isCloudflare ? 'Cloudflare Managed' : (document.getElementById('domain').value || 'Custom Domain');
+            
+            // Update storage display in overview
+            const allocatedVal = document.getElementById('storageLimit') ? document.getElementById('storageLimit').value : '?';
+            const storageOverview = document.querySelector('#step5-content .space-y-1\\.5:nth-child(3) .font-body-md');
+            if (storageOverview) storageOverview.textContent = allocatedVal + ' GB Allocated';
+            
+            // Hide header text and progress bar since this is the final success screen
+            document.getElementById('header-text').style.opacity = '0';
+        }
+
+        setHeightFor(newEl);
+    }
+
+    // Step 3 Configuration Method Toggle
+    function setConfigMethod(method) {
+        const btnCloudflare = document.getElementById('btn-config-cloudflare');
+        const btnManual = document.getElementById('btn-config-manual');
+        const uiCloudflare = document.getElementById('ui-cloudflare');
+        const uiManual = document.getElementById('ui-manual');
+        const btnVerifyDomain = document.getElementById('btn-verify-domain');
+        
+        if (method === 'cloudflare') {
+            // Active Cloudflare
+            btnCloudflare.className = "relative p-5 rounded-xl border border-[#448aff]/50 bg-[#448aff]/10 cursor-pointer transition-colors flex items-start gap-4";
+            document.getElementById('radio-cloudflare-outer').className = "mt-0.5 w-5 h-5 rounded-full border border-[#448aff] flex items-center justify-center";
+            document.getElementById('radio-cloudflare-inner').className = "w-2.5 h-2.5 rounded-full bg-[#448aff]";
+            document.getElementById('text-cloudflare').className = "font-label-md text-[14px] flex items-center gap-2 text-[#448aff] font-semibold";
+            
+            // Inactive Manual
+            btnManual.className = "relative p-5 rounded-xl border border-outline-variant/40 hover:border-[#448aff]/50 hover:bg-surface-container-high cursor-pointer transition-colors flex items-start gap-4 bg-surface-container/30";
+            document.getElementById('radio-manual-outer').className = "mt-0.5 w-5 h-5 rounded-full border border-outline-variant/60 flex items-center justify-center";
+            document.getElementById('radio-manual-inner').className = "w-2.5 h-2.5 rounded-full bg-transparent";
+            document.getElementById('text-manual').className = "font-label-md text-[14px] text-on-surface font-semibold";
+            
+            // Toggle UIs
+            uiCloudflare.classList.remove('hidden');
+            uiCloudflare.classList.add('flex');
+            uiManual.classList.add('hidden');
+            uiManual.classList.remove('flex');
+            btnVerifyDomain.classList.add('hidden');
+        } else {
+            // Active Manual
+            btnManual.className = "relative p-5 rounded-xl border border-[#448aff]/50 bg-[#448aff]/10 cursor-pointer transition-colors flex items-start gap-4";
+            document.getElementById('radio-manual-outer').className = "mt-0.5 w-5 h-5 rounded-full border border-[#448aff] flex items-center justify-center";
+            document.getElementById('radio-manual-inner').className = "w-2.5 h-2.5 rounded-full bg-[#448aff]";
+            document.getElementById('text-manual').className = "font-label-md text-[14px] text-[#448aff] font-semibold";
+            
+            // Inactive Cloudflare
+            btnCloudflare.className = "relative p-5 rounded-xl border border-outline-variant/40 hover:border-[#448aff]/50 hover:bg-surface-container-high cursor-pointer transition-colors flex items-start gap-4 bg-surface-container/30";
+            document.getElementById('radio-cloudflare-outer').className = "mt-0.5 w-5 h-5 rounded-full border border-outline-variant/60 flex items-center justify-center";
+            document.getElementById('radio-cloudflare-inner').className = "w-2.5 h-2.5 rounded-full bg-transparent";
+            document.getElementById('text-cloudflare').className = "font-label-md text-[14px] flex items-center gap-2 text-on-surface font-semibold";
+            
+            // Toggle UIs
+            uiManual.classList.remove('hidden');
+            uiManual.classList.add('flex');
+            uiCloudflare.classList.add('hidden');
+            uiCloudflare.classList.remove('flex');
+            btnVerifyDomain.classList.remove('hidden');
+        }
+        
+        // Re-calculate the height to animate the card resizing
+        setTimeout(() => setHeightFor(document.getElementById('step4-content')), 10);
+    }
+
+    // Step 1
+    let orgLogoBase64 = null;
+    
+    // Logo Upload Logic
+    const logoDropzone = document.getElementById('logo-dropzone');
+    const logoInput = document.getElementById('logo-input');
+    const logoPreviewContainer = document.getElementById('logo-preview-container');
+    const logoPreview = document.getElementById('logo-preview');
+    const removeLogoBtn = document.getElementById('remove-logo');
+
+    logoDropzone.addEventListener('click', () => logoInput.click());
+    
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        logoDropzone.addEventListener(eventName, preventDefaults, false);
+    });
+    
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+    
+    ['dragenter', 'dragover'].forEach(eventName => {
+        logoDropzone.addEventListener(eventName, () => {
+            logoDropzone.classList.add('border-[#448aff]');
+        }, false);
+    });
+    
+    ['dragleave', 'drop'].forEach(eventName => {
+        logoDropzone.addEventListener(eventName, () => {
+            logoDropzone.classList.remove('border-[#448aff]');
+        }, false);
+    });
+    
+    logoDropzone.addEventListener('drop', handleDrop, false);
+    logoInput.addEventListener('change', function() {
+        if (this.files && this.files[0]) {
+            validateAndProcessFile(this.files[0]);
+        }
+    });
+    
+    function handleDrop(e) {
+        let dt = e.dataTransfer;
+        let files = dt.files;
+        if (files && files[0]) {
+            validateAndProcessFile(files[0]);
+        }
+    }
+    
+    function validateAndProcessFile(file) {
+        if (!['image/jpeg', 'image/png'].includes(file.type)) {
+            window.showAlert('Notice', "Please upload a PNG or JPEG image.", 'error');
+            logoInput.value = '';
+            return;
+        }
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = new Image();
+            img.onload = function() {
+                if (img.width !== img.height) {
+                    window.showAlert('Notice', "Image must have a 1:1 aspect ratio (a perfect square).", 'error');
+                    logoInput.value = '';
+                    return;
+                }
+                if (img.width > 500 || img.height > 500) {
+                    window.showAlert('Notice', "Image must be no larger than 500x500 pixels.", 'error');
+                    logoInput.value = '';
+                    return;
+                }
+                
+                // Valid!
+                orgLogoBase64 = e.target.result;
+                logoPreview.src = orgLogoBase64;
+                logoPreviewContainer.classList.remove('hidden');
+            };
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+    
+    removeLogoBtn.addEventListener('click', (e) => {
+        e.stopPropagation(); // prevent clicking dropzone
+        orgLogoBase64 = null;
+        logoInput.value = '';
+        logoPreview.src = '';
+        logoPreviewContainer.classList.add('hidden');
+    });
+
+    document.getElementById('step1-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const orgName = document.getElementById('orgName').value;
+        if (orgName) navigateSteps('next');
+    });
+
+    // Step 2
+    let userPicBase64 = null;
+    const userPicDropzone = document.getElementById('user-pic-dropzone');
+    const userPicInput = document.getElementById('user-pic-input');
+    const userPicPreview = document.getElementById('user-pic-preview');
+    const userPicPreviewContainer = document.getElementById('user-pic-preview-container');
+    const removeUserPicBtn = document.getElementById('remove-user-pic');
+
+    userPicDropzone.addEventListener('click', () => userPicInput.click());
+    
+    userPicDropzone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        userPicDropzone.classList.add('border-[#448aff]/50', 'bg-surface-container');
+    });
+    
+    userPicDropzone.addEventListener('dragleave', () => {
+        userPicDropzone.classList.remove('border-[#448aff]/50', 'bg-surface-container');
+    });
+    
+    userPicDropzone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        userPicDropzone.classList.remove('border-[#448aff]/50', 'bg-surface-container');
+        if (e.dataTransfer.files.length) {
+            handleUserPicFile(e.dataTransfer.files[0]);
+        }
+    });
+
+    userPicInput.addEventListener('change', (e) => {
+        if (e.target.files.length) {
+            handleUserPicFile(e.target.files[0]);
+        }
+    });
+
+    function handleUserPicFile(file) {
+        if (!file.type.match('image/jpeg') && !file.type.match('image/png')) {
+            window.showAlert('Notice', "Only PNG or JPEG images are allowed.", 'error');
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = new Image();
+            img.onload = function() {
+                if (img.width !== img.height) {
+                    window.showAlert('Notice', "Image must have a 1:1 aspect ratio (a perfect square).", 'error');
+                    userPicInput.value = '';
+                    return;
+                }
+                if (img.width > 500 || img.height > 500) {
+                    window.showAlert('Notice', "Image must be no larger than 500x500 pixels.", 'error');
+                    userPicInput.value = '';
+                    return;
+                }
+                
+                // Valid!
+                userPicBase64 = e.target.result;
+                userPicPreview.src = userPicBase64;
+                userPicPreviewContainer.classList.remove('hidden');
+            };
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+    
+    removeUserPicBtn.addEventListener('click', (e) => {
+        e.stopPropagation(); // prevent clicking dropzone
+        userPicBase64 = null;
+        userPicInput.value = '';
+        userPicPreview.src = '';
+        userPicPreviewContainer.classList.add('hidden');
+    });
+
+    document.getElementById('step2-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        if (password !== confirmPassword) {
+            window.showAlert('Notice', "Passwords do not match.", 'error');
+            return;
+        }
+        navigateSteps('next');
+    });
+    document.getElementById('back-btn-2').addEventListener('click', () => navigateSteps('prev'));
+
+    // Step 3
+    let isCfVerified = false;
+    let isManualVerified = false;
+    let manualDnsTimeout = null;
+
+    // Cloudflare Logic
+    let cfToken = "";
+    let cfZones = [];
+    let cfSelectedZoneId = "";
+    let cfSelectedZoneName = "";
+    let cfFinalDomain = "";
+
+    function hideCfStates() {
+        document.getElementById('cf-state-token').classList.add('hidden');
+        document.getElementById('cf-state-zone').classList.add('hidden');
+        document.getElementById('cf-state-zone').classList.remove('flex');
+        document.getElementById('cf-state-subdomain').classList.add('hidden');
+        document.getElementById('cf-state-subdomain').classList.remove('flex');
+        document.getElementById('cf-state-success').classList.add('hidden');
+        document.getElementById('cf-state-success').classList.remove('flex');
+    }
+
+    async function handleCloudflareConnect() {
+        const tokenInput = document.getElementById('cfToken').value.trim();
+        if (!tokenInput) {
+            window.showAlert('Notice', "Please enter a valid API token.", 'error');
+            return;
+        }
+        
+        const btn = document.getElementById('btn-cf-connect');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `Connecting... <span class="material-symbols-outlined text-[18px] animate-spin">sync</span>`;
+        btn.disabled = true;
+
+        try {
+            const res = await fetch('/api/cloudflare/zones', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ token: tokenInput })
+            });
+            const data = await res.json();
+            
+            if (res.ok && data.success) {
+                cfToken = tokenInput;
+                cfZones = data.zones;
+                
+                const select = document.getElementById('cfZoneSelect');
+                select.innerHTML = '';
+                cfZones.forEach(z => {
+                    const opt = document.createElement('option');
+                    opt.value = z.id;
+                    opt.textContent = z.name;
+                    select.appendChild(opt);
+                });
+
+                hideCfStates();
+                document.getElementById('cf-state-zone').classList.remove('hidden');
+                document.getElementById('cf-state-zone').classList.add('flex');
+                setTimeout(() => setHeightFor(document.getElementById('step4-content')), 10);
+            } else {
+                window.showAlert('Notice', data.error || "Failed to connect to Cloudflare.", 'error');
+            }
+        } catch (err) {
+            window.showAlert('Notice', "Network error.", 'error');
+        } finally {
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        }
+    }
+
+    function handleCloudflareBypass() {
+        cfFinalDomain = "localhost:5010";
+        isCfVerified = true;
+        
+        document.getElementById('cfFinalDomainDisplay').textContent = cfFinalDomain;
+        
+        hideCfStates();
+        document.getElementById('cf-state-success').classList.remove('hidden');
+        document.getElementById('cf-state-success').classList.add('flex');
+        setTimeout(() => setHeightFor(document.getElementById('step4-content')), 10);
+    }
+
+    function handleCloudflareZoneSelect() {
+        const select = document.getElementById('cfZoneSelect');
+        cfSelectedZoneId = select.value;
+        const selectedOption = select.options[select.selectedIndex];
+        if (!selectedOption) return;
+        
+        cfSelectedZoneName = selectedOption.textContent;
+        document.getElementById('cfSelectedZoneDisplay').textContent = cfSelectedZoneName;
+        
+        hideCfStates();
+        document.getElementById('cf-state-subdomain').classList.remove('hidden');
+        document.getElementById('cf-state-subdomain').classList.add('flex');
+        setTimeout(() => setHeightFor(document.getElementById('step4-content')), 10);
+    }
+
+    async function handleCloudflareProvision() {
+        let subdomain = document.getElementById('cfSubdomainInput').value.trim();
+        subdomain = subdomain.replace(/[^a-zA-Z0-9-]/g, '');
+        
+        const fullDomain = subdomain ? `${subdomain}.${cfSelectedZoneName}` : cfSelectedZoneName;
+        
+        const btn = document.getElementById('btn-cf-provision');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `Provisioning... <span class="material-symbols-outlined text-[18px] animate-spin">sync</span>`;
+        btn.disabled = true;
+
+        try {
+            const res = await fetch('/api/cloudflare/provision', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    token: cfToken,
+                    zone_id: cfSelectedZoneId,
+                    domain: fullDomain
+                })
+            });
+            const data = await res.json();
+            
+            if (res.ok && data.success) {
+                cfFinalDomain = fullDomain;
+                isCfVerified = true;
+                
+                document.getElementById('cfFinalDomainDisplay').textContent = fullDomain;
+                
+                hideCfStates();
+                document.getElementById('cf-state-success').classList.remove('hidden');
+                document.getElementById('cf-state-success').classList.add('flex');
+                setTimeout(() => setHeightFor(document.getElementById('step4-content')), 10);
+            } else {
+                window.showAlert('Notice', data.error || "Failed to provision DNS records.", 'error');
+            }
+        } catch (err) {
+            window.showAlert('Notice', "Network error.", 'error');
+        } finally {
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        }
+    }
+
+    // Manual DNS Logic
+    const domainInput = document.getElementById('domain');
+    const manualRecordsTable = document.getElementById('manual-dns-records');
+
+    // Timezone Initializer
+    document.addEventListener('DOMContentLoaded', () => {
+        const tzInput = document.getElementById('timezone');
+        const tzButton = document.getElementById('custom-tz-button');
+        const tzDisplay = document.getElementById('custom-tz-display');
+        const tzIcon = document.getElementById('custom-tz-icon');
+        const tzDropdown = document.getElementById('custom-tz-dropdown');
+        const tzList = document.getElementById('custom-tz-list');
+        
+        let isOpen = false;
+
+        // Toggle Dropdown
+        tzButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            isOpen = !isOpen;
+            if (isOpen) {
+                tzDropdown.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-2');
+                tzIcon.classList.add('rotate-180');
+                tzButton.classList.add('border-[#448aff]', 'ring-1', 'ring-[#448aff]');
+            } else {
+                tzDropdown.classList.add('opacity-0', 'pointer-events-none', '-translate-y-2');
+                tzIcon.classList.remove('rotate-180');
+                tzButton.classList.remove('border-[#448aff]', 'ring-1', 'ring-[#448aff]');
+            }
+        });
+
+        // Close on outside click
+        document.addEventListener('click', (e) => {
+            if (isOpen && !document.getElementById('custom-tz-wrapper').contains(e.target)) {
+                isOpen = false;
+                tzDropdown.classList.add('opacity-0', 'pointer-events-none', '-translate-y-2');
+                tzIcon.classList.remove('rotate-180');
+                tzButton.classList.remove('border-[#448aff]', 'ring-1', 'ring-[#448aff]');
+            }
+        });
+        
+        const timezones = [
+            { value: "Etc/GMT+12", label: "UTC -12:00" },
+            { value: "Etc/GMT+11", label: "UTC -11:00" },
+            { value: "Pacific/Honolulu", label: "UTC -10:00" },
+            { value: "America/Anchorage", label: "UTC -09:00" },
+            { value: "America/Los_Angeles", label: "UTC -08:00" },
+            { value: "America/Denver", label: "UTC -07:00" },
+            { value: "America/Chicago", label: "UTC -06:00" },
+            { value: "America/New_York", label: "UTC -05:00" },
+            { value: "America/Halifax", label: "UTC -04:00" },
+            { value: "America/St_Johns", label: "UTC -03:30" },
+            { value: "America/Argentina/Buenos_Aires", label: "UTC -03:00" },
+            { value: "Etc/GMT+2", label: "UTC -02:00" },
+            { value: "Etc/GMT+1", label: "UTC -01:00" },
+            { value: "UTC", label: "UTC ±00:00" },
+            { value: "Europe/Paris", label: "UTC +01:00" },
+            { value: "Europe/Helsinki", label: "UTC +02:00" },
+            { value: "Europe/Moscow", label: "UTC +03:00" },
+            { value: "Asia/Tehran", label: "UTC +03:30" },
+            { value: "Asia/Dubai", label: "UTC +04:00" },
+            { value: "Asia/Kabul", label: "UTC +04:30" },
+            { value: "Asia/Karachi", label: "UTC +05:00" },
+            { value: "Asia/Kolkata", label: "UTC +05:30" },
+            { value: "Asia/Kathmandu", label: "UTC +05:45" },
+            { value: "Asia/Dhaka", label: "UTC +06:00" },
+            { value: "Asia/Yangon", label: "UTC +06:30" },
+            { value: "Asia/Bangkok", label: "UTC +07:00" },
+            { value: "Asia/Shanghai", label: "UTC +08:00" },
+            { value: "Australia/Eucla", label: "UTC +08:45" },
+            { value: "Asia/Tokyo", label: "UTC +09:00" },
+            { value: "Australia/Darwin", label: "UTC +09:30" },
+            { value: "Australia/Sydney", label: "UTC +10:00" },
+            { value: "Australia/Lord_Howe", label: "UTC +10:30" },
+            { value: "Pacific/Noumea", label: "UTC +11:00" },
+            { value: "Pacific/Auckland", label: "UTC +12:00" },
+            { value: "Pacific/Chatham", label: "UTC +12:45" },
+            { value: "Pacific/Apia", label: "UTC +13:00" },
+            { value: "Pacific/Kiritimati", label: "UTC +14:00" }
+        ];
+        
+        let localTz = "UTC";
+        try {
+            localTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        } catch(e) {}
+        
+        let foundMatch = false;
+        
+        function selectOption(value, label) {
+            tzInput.value = value;
+            tzDisplay.textContent = label;
+            
+            // Remove checkmark from all
+            document.querySelectorAll('.tz-option-check').forEach(el => el.classList.add('opacity-0'));
+            // Add checkmark to selected
+            const selectedCheck = document.getElementById(`check-${value.replace(/[^a-zA-Z0-9]/g, '-')}`);
+            if (selectedCheck) selectedCheck.classList.remove('opacity-0');
+            
+            // Close dropdown
+            if (isOpen) {
+                isOpen = false;
+                tzDropdown.classList.add('opacity-0', 'pointer-events-none', '-translate-y-2');
+                tzIcon.classList.remove('rotate-180');
+                tzButton.classList.remove('border-[#448aff]', 'ring-1', 'ring-[#448aff]');
+            }
+        }
+        
+        function createOption(value, label, isSelected) {
+            const li = document.createElement('li');
+            li.className = 'px-4 py-2 hover:bg-surface-container-highest cursor-pointer flex items-center justify-between text-[13px] text-on-surface-variant hover:text-on-surface transition-colors';
+            
+            const textSpan = document.createElement('span');
+            textSpan.textContent = label;
+            
+            const checkIcon = document.createElement('span');
+            checkIcon.className = `material-symbols-outlined text-[16px] text-primary tz-option-check transition-opacity ${isSelected ? '' : 'opacity-0'}`;
+            checkIcon.id = `check-${value.replace(/[^a-zA-Z0-9]/g, '-')}`;
+            checkIcon.textContent = 'check';
+            
+            li.appendChild(textSpan);
+            li.appendChild(checkIcon);
+            
+            li.addEventListener('click', (e) => {
+                e.stopPropagation();
+                selectOption(value, label);
+            });
+            
+            tzList.appendChild(li);
+        }
+        
+        timezones.forEach(tz => {
+            const isSelected = (tz.value === localTz);
+            if (isSelected) foundMatch = true;
+            createOption(tz.value, tz.label, isSelected);
+            if (isSelected) {
+                tzInput.value = tz.value;
+                tzDisplay.textContent = tz.label;
+            }
+        });
+        
+        // If the exact IANA name wasn't in our list
+        if (!foundMatch && localTz !== "UTC") {
+            try {
+                const date = new Date();
+                const tzString = date.toLocaleString('en-US', { timeZoneName: 'shortOffset', timeZone: localTz });
+                const match = tzString.match(/GMT([+-][\d:]+)/);
+                if (match) {
+                    let offset = match[1];
+                    if(offset.length === 2) offset += ':00'; // +5 -> +5:00
+                    if(offset.indexOf(':') === -1) offset += ':00';
+                    const label = `UTC ${offset}`;
+                    
+                    const li = document.createElement('li');
+                    li.className = 'px-4 py-2 hover:bg-surface-container-highest cursor-pointer flex items-center justify-between text-[13px] text-on-surface-variant hover:text-on-surface transition-colors';
+                    
+                    const textSpan = document.createElement('span');
+                    textSpan.textContent = label;
+                    
+                    const checkIcon = document.createElement('span');
+                    checkIcon.className = `material-symbols-outlined text-[16px] text-primary tz-option-check transition-opacity`;
+                    checkIcon.id = `check-${localTz.replace(/[^a-zA-Z0-9]/g, '-')}`;
+                    checkIcon.textContent = 'check';
+                    
+                    li.appendChild(textSpan);
+                    li.appendChild(checkIcon);
+                    
+                    li.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        selectOption(localTz, label);
+                    });
+                    
+                    tzList.insertBefore(li, tzList.firstChild);
+                    
+                    tzInput.value = localTz;
+                    tzDisplay.textContent = label;
+                }
+            } catch(e) {}
+        }
+        
+        if (tzDisplay.textContent === 'Select Timezone...') {
+            selectOption('UTC', 'UTC ±00:00');
+        }
+    });
+
+    domainInput.addEventListener('input', function(e) {
+        clearTimeout(manualDnsTimeout);
+        const domain = e.target.value.trim();
+        
+        if (!domain) {
+            manualRecordsTable.classList.add('hidden');
+            manualRecordsTable.classList.remove('flex');
+            document.getElementById('dns-txt-name').textContent = "_xndcy-dashboard";
+            document.getElementById('dns-a-name').textContent = "@";
+            document.getElementById('dns-txt-value').textContent = "Pending...";
+            setHeightFor(document.getElementById('step4-content'));
+            return;
+        }
+
+        manualDnsTimeout = setTimeout(async () => {
+            try {
+                const res = await fetch(`/api/dns-info?domain=${encodeURIComponent(domain)}`);
+                const data = await res.json();
+                if (res.ok) {
+                    manualRecordsTable.classList.remove('hidden');
+                    manualRecordsTable.classList.add('flex');
+                    document.getElementById('dns-txt-name').textContent = data.txt_name;
+                    document.getElementById('dns-a-name').textContent = data.a_name;
+                    document.getElementById('dns-txt-value').textContent = data.expected_token;
+                    document.getElementById('dns-txt-value').title = data.expected_token;
+                    document.getElementById('dns-a-value').textContent = data.expected_a_record;
+                    document.getElementById('dns-a-value').title = data.expected_a_record;
+                    setHeightFor(document.getElementById('step4-content'));
+                }
+            } catch (err) {
+                console.error("Failed to fetch DNS info", err);
+            }
+        }, 500); // debounce 500ms
+    });
+
+    document.getElementById('btn-verify-domain').addEventListener('click', async function() {
+        const domain = domainInput.value.trim();
+        if (!domain) {
+            window.showAlert('Notice', "Please enter a domain name first.", 'error');
+            return;
+        }
+
+        const originalText = this.textContent;
+        this.textContent = "Verifying...";
+        this.disabled = true;
+
+        try {
+            const res = await fetch('/api/verify-dns', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ domain })
+            });
+            const data = await res.json();
+
+            if (res.ok && data.success) {
+                // Update UI based on verification
+                const txtBadge = document.getElementById('status-txt-badge');
+                if (data.txt_verified) {
+                    txtBadge.innerHTML = `
+                        <div class="w-1.5 h-1.5 rounded-full bg-[#00d0b1]"></div>
+                        <span class="font-label-sm text-[11px] text-on-surface-variant">Propagated</span>
+                    `;
+                }
+                
+                const aBadge = document.getElementById('status-a-badge');
+                if (data.a_verified) {
+                    aBadge.innerHTML = `
+                        <div class="w-1.5 h-1.5 rounded-full bg-[#00d0b1]"></div>
+                        <span class="font-label-sm text-[11px] text-on-surface-variant">Propagated</span>
+                    `;
+                }
+
+                if (data.txt_verified && data.a_verified) {
+                    isManualVerified = true;
+                    this.textContent = "Verified!";
+                    this.classList.replace('bg-surface-container-low', 'bg-[#1e2f28]');
+                    this.classList.replace('border-outline-variant/40', 'border-[#2d4a3e]');
+                    this.classList.replace('text-on-surface', 'text-[#4ade80]');
+                } else {
+                    this.textContent = "Retry Verification";
+                    this.disabled = false;
+                    window.showAlert('Notice', "Not all records are propagated yet. Please check your DNS registrar and wait a few minutes.", 'error');
+                }
+            } else {
+                this.textContent = "Verify Domain";
+                this.disabled = false;
+                window.showAlert('Notice', data.message || "Verification failed.", 'error');
+            }
+        } catch (err) {
+            console.error(err);
+            this.textContent = "Verify Domain";
+            this.disabled = false;
+            window.showAlert('Notice', "Network error. Please try again.", 'error');
+        }
+    });
+
+    // Step 3 (Storage Allocation)
+    const storageSlider = document.getElementById('storageLimit');
+    const storageDisplay = document.getElementById('storageDisplay');
+    if (storageSlider && storageDisplay) {
+        storageSlider.addEventListener('input', (e) => {
+            storageDisplay.value = e.target.value;
+        });
+        
+        storageDisplay.addEventListener('input', (e) => {
+            let val = parseInt(e.target.value);
+            if (!isNaN(val)) {
+                if (val > storageSlider.max) val = storageSlider.max;
+                if (val < 1) val = 1;
+                storageSlider.value = val;
+            }
+        });
+        
+        storageDisplay.addEventListener('blur', (e) => {
+            let val = parseInt(e.target.value);
+            if (isNaN(val) || val < 1) val = 1;
+            if (val > storageSlider.max) val = storageSlider.max;
+            e.target.value = val;
+            storageSlider.value = val;
+        });
+    }
+
+    document.getElementById('step3-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        navigateSteps('next');
+    });
+    document.getElementById('back-btn-3').addEventListener('click', () => navigateSteps('prev'));
+
+    // Step 4 (Domain Configuration)
+    document.getElementById('step4-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const isCloudflare = document.getElementById('ui-cloudflare').classList.contains('flex');
+        
+        if (isCloudflare) {
+            if (!isCfVerified) {
+                window.showAlert('Notice', "Please complete Cloudflare authorization first.", 'error');
+                return;
+            }
+        } else {
+            if (!isManualVerified) {
+                window.showAlert('Notice', "Please verify your DNS records before continuing.", 'error');
+                return;
+            }
+        }
+        
+        navigateSteps('next');
+    });
+    document.getElementById('back-btn-4').addEventListener('click', () => navigateSteps('prev'));
+
+    // Step 5 (Final Submit)
+    document.getElementById('step5-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const btn = document.getElementById('btn-open-dashboard');
+        btn.innerHTML = `Provisioning... <span class="material-symbols-outlined text-[18px] animate-spin">sync</span>`;
+        btn.disabled = true;
+        
+        // Collect data
+        const orgName = document.getElementById('orgName').value || 'Default Organization';
+        const firstName = document.getElementById('firstName').value || 'Admin';
+        const lastName = document.getElementById('lastName').value || 'User';
+        const email = document.getElementById('workEmail').value;
+        const password = document.getElementById('password').value;
+        const timezone = document.getElementById('timezone').value;
+        const allocatedStorage = document.getElementById('storageLimit') ? document.getElementById('storageLimit').value : null;
+        
+        const isCloudflare = document.getElementById('ui-cloudflare').classList.contains('flex');
+        const authMethod = isCloudflare ? 'Cloudflare' : 'Manual';
+        const domainName = isCloudflare ? cfFinalDomain : (document.getElementById('domain').value || 'Custom Domain');
+        const leEmail = document.getElementById('leEmail') ? document.getElementById('leEmail').value : email;
+        
+        try {
+            const response = await fetch('/api/setup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ orgName, firstName, lastName, email, password, timezone, logo: orgLogoBase64, profilePic: userPicBase64, domain: domainName, authMethod, leEmail, allocatedStorage })
+            });
+            
+            const data = await response.json();
+            
+            if (response.ok && data.success) {
+                btn.innerHTML = `Provisioning... <span class="material-symbols-outlined text-[18px] animate-spin">sync</span>`;
+                setTimeout(() => {
+                    if (isCloudflare) {
+                        window.location.href = '/login';
+                    } else {
+                        window.location.href = `https://${domainName}/login`;
+                    }
+                }, 15000);
+            } else {
+                window.showAlert('Notice', data.message || 'Setup failed.', 'error');
+                btn.innerHTML = `Open Dashboard <span class="material-symbols-outlined text-[18px]">arrow_forward</span>`;
+                btn.disabled = false;
+            }
+        } catch (error) {
+            window.showAlert('Notice', 'Server error. Please try again later.', 'error');
+            btn.innerHTML = `Open Dashboard <span class="material-symbols-outlined text-[18px]">arrow_forward</span>`;
+            btn.disabled = false;
+        }
+    });
+</script>
+
+</body></html>

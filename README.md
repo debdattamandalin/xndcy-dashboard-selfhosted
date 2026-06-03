@@ -53,7 +53,27 @@ Xndcy Dashboard is a modern, self-hosted administrative interface designed for s
 
 ---
 
-## 📦 Installation & Local Development
+## 📦 Automated Production Installation (Ubuntu/Debian)
+
+If you are deploying this dashboard to a live Linux server (Ubuntu/Debian), we have provided a fully automated installation script. 
+
+This script will automatically:
+- Install system dependencies (Git, Python, Nginx, Certbot, Gunicorn, SQLite).
+- Clone the repository into `/opt/xndcy-dashboard`.
+- Create a Python virtual environment and install requirements.
+- Configure and start a `systemd` background service to keep the app running.
+- Set up an Nginx reverse proxy to expose the dashboard on port 80.
+- Provide a helper script (`sudo /opt/xndcy-dashboard/enable_ssl.sh`) to instantly generate free SSL certificates via Let's Encrypt.
+
+To use the automated installer, simply run:
+```bash
+sudo chmod +x install.sh
+sudo ./install.sh
+```
+
+---
+
+## 💻 Local Development
 
 ### Prerequisites
 Make sure you have Python 3.8+ installed on your system.
